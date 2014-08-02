@@ -99,6 +99,7 @@ public class Saisie extends Activity implements View.OnClickListener {
                 Amarino.sendDataToArduino(this.getApplicationContext(),DEVICE_ADDRESS,'E','\0');
                 break;
             case R.id.button_right : text.setText(("right"));
+                Amarino.sendDataToArduino(this.getApplicationContext(),DEVICE_ADDRESS,'A','R');
                 break;
             default: break;
         }
