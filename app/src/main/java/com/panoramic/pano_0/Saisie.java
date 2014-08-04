@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import at.abraxas.amarino.Amarino;
@@ -19,10 +20,10 @@ import at.abraxas.amarino.AmarinoIntent;
 public class Saisie extends Activity implements View.OnClickListener {
 
 
-    Button button_up;
-    Button button_down;
-    Button button_left;
-    Button button_right;
+    ImageButton button_up;
+    ImageButton button_down;
+    ImageButton button_left;
+    ImageButton button_right;
     TextView text;
 
     private static final String DEVICE_ADDRESS =  "20:13:11:14:04:23";
@@ -32,10 +33,10 @@ public class Saisie extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saisie);
-        button_up = (Button) findViewById(R.id.button_up);
-        button_down = (Button) findViewById(R.id.button_down);
-        button_left = (Button) findViewById(R.id.button_left);
-        button_right = (Button) findViewById(R.id.button_right);
+        button_up = (ImageButton) findViewById(R.id.button_up);
+        button_down = (ImageButton) findViewById(R.id.button_down);
+        button_left = (ImageButton) findViewById(R.id.button_left);
+        button_right = (ImageButton) findViewById(R.id.button_right);
         text = (TextView) findViewById(R.id.textView);
 
        button_up.setOnClickListener(this);
