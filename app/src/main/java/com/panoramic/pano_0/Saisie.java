@@ -40,8 +40,8 @@ public class Saisie extends Activity implements View.OnClickListener {
 
        button_up.setOnClickListener(this);
        button_down.setOnClickListener(this);
-        button_left.setOnClickListener(this);
-        button_right.setOnClickListener(this);
+       button_left.setOnClickListener(this);
+       button_right.setOnClickListener(this);
     }
 
 

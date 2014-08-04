@@ -15,39 +15,48 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:text="up"
         android:id="@+id/button_up"
-        android:layout_marginTop="53dp"
+        android:background="@drawable/red_green"
+        android:layout_marginTop="0dp"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:text="left"
         android:id="@+id/button_left"
-        android:layout_marginTop="39dp"
+        android:background="@drawable/off"
         android:layout_below="@+id/button_up"
-        android:layout_toLeftOf="@+id/button_up" />
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_margin="5dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:text="right"
         android:id="@+id/button_right"
-        android:layout_alignTop="@+id/button_left"
-        android:layout_toRightOf="@+id/button_down" />
+        android:background="@drawable/red_r"
+        android:layout_below="@+id/button_up"
+        android:layout_toRightOf="@+id/button_down"
+        android:layout_margin="5dp"
+        android:layout_alignParentEnd="false" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:text="down"
         android:id="@+id/button_down"
-        android:layout_marginTop="34dp"
+        android:background="@drawable/red_l"
         android:layout_below="@+id/button_right"
-        android:layout_toRightOf="@+id/button_left" />
+        android:layout_alignLeft="@+id/button_up"
+        android:layout_alignStart="@+id/button_up"
+        android:layout_margin="5dp" />
 
 </RelativeLayout>
