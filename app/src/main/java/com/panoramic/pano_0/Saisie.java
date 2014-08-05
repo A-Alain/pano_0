@@ -26,8 +26,10 @@ public class Saisie extends Activity implements View.OnClickListener {
     ImageButton button_right;
     TextView text;
 
-    private static final String DEVICE_ADDRESS =  "20:13:11:14:04:23";
+    public static final String DEVICE_ADDRESS =  "20:13:11:14:04:23";
     private ArduinoReceiver arduinoReceiver = new ArduinoReceiver();
+
+    private LedManager ledManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class Saisie extends Activity implements View.OnClickListener {
        button_down.setOnClickListener(this);
        button_left.setOnClickListener(this);
        button_right.setOnClickListener(this);
+
+       ledManager = new LedManager(this.getApplicationContext());
     }
 
 
@@ -94,13 +98,13 @@ public class Saisie extends Activity implements View.OnClickListener {
             case R.id.button_down : text.setText("down");
                 break;
             case R.id.button_up : text.setText(("up"));
-                Amarino.sendDataToArduino(this.getApplicationContext(),DEVICE_ADDRESS,'A','V');
+                ledManager.blink_red_and_green();
                 break;
             case R.id.button_left : text.setText("left");
-                Amarino.sendDataToArduino(this.getApplicationContext(),DEVICE_ADDRESS,'E','\0');
+                ledManager.switch_off();
                 break;
             case R.id.button_right : text.setText(("right"));
-                Amarino.sendDataToArduino(this.getApplicationContext(),DEVICE_ADDRESS,'A','R');
+                ledManager.quickly_blink_red();
                 break;
             default: break;
         }
