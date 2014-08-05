@@ -33,9 +33,8 @@
         android:id="@+id/button_left"
         android:background="@drawable/off"
         android:layout_below="@+id/button_up"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_margin="5dp" />
+        android:layout_toLeftOf="@+id/button_down"
+        android:layout_toStartOf="@+id/button_down" />
 
     <ImageButton
         android:layout_width="60dp"
