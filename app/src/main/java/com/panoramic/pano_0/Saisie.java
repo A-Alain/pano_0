@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -28,7 +29,7 @@ public class Saisie extends Activity implements View.OnClickListener, View.OnTou
     TextView text;
     PilotageMoteurs moteurs;
 
-    public static final String DEVICE_ADDRESS =  "20:13:11:14:04:23";
+    public static final String DEVICE_ADDRESS = "20:13:11:14:04:23";
     private ArduinoReceiver arduinoReceiver = new ArduinoReceiver();
 
     private LedManager ledManager;
@@ -43,15 +44,15 @@ public class Saisie extends Activity implements View.OnClickListener, View.OnTou
         button_right = (ImageButton) findViewById(R.id.button_right);
         text = (TextView) findViewById(R.id.textView);
 
-       button_left.setOnTouchListener(this);
-       button_up.setOnClickListener(this);
-       button_down.setOnClickListener(this);
+        button_left.setOnTouchListener(this);
+        button_up.setOnClickListener(this);
+        button_down.setOnClickListener(this);
 
-       button_right.setOnClickListener(this);
+        button_right.setOnClickListener(this);
 
-       ledManager = new LedManager(this.getApplicationContext());
-       moteurs = new PilotageMoteurs(this.getApplicationContext());
-      // moteurs.PanOn(PilotageMoteurs.Pan.Droite);
+        ledManager = new LedManager(this.getApplicationContext());
+        moteurs = new PilotageMoteurs(this.getApplicationContext());
+        // moteurs.PanOn(PilotageMoteurs.Pan.Droite);
     }
 
 
@@ -100,31 +101,36 @@ public class Saisie extends Activity implements View.OnClickListener, View.OnTou
     public void onClick(View view) {
 
         int id = view.getId();
-        switch (id){
-            case R.id.button_down : text.setText("down");
+        switch (id) {
+            case R.id.button_down:
+                text.setText("down");
                 break;
-            case R.id.button_up : text.setText(("up"));
+            case R.id.button_up:
+                text.setText(("up"));
                 ledManager.blink_red_and_green();
                 break;
-            case R.id.button_left : text.setText("left");
+            case R.id.button_left:
+                text.setText("left");
                 ledManager.switch_off();
                 break;
-            case R.id.button_right : text.setText(("right"));
+            case R.id.button_right:
+                text.setText(("right"));
                 ledManager.quickly_blink_red();
                 break;
-            default: break;
+            default:
+                break;
         }
 
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.button_left:
-                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                     moteurs.PanOn(PilotageMoteurs.Pan.Gauche);
                 }
-                if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     moteurs.PanOff();
                 }
                 break;
@@ -133,40 +139,4 @@ public class Saisie extends Activity implements View.OnClickListener, View.OnTou
     }
 
 
-    /**
-     * ArduinoReceiver is responsible for catching broadcasted Amarino
-     * events.
-     *
-     * It extracts data from the intent and updates the graph accordingly.
-     */
-    public class ArduinoReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String data = null;
-
-            // the device address from which the data was sent, we don't need it here but to demonstrate how you retrieve it
-            final String address = intent.getStringExtra(AmarinoIntent.EXTRA_DEVICE_ADDRESS);
-
-            // the type of data which is added to the intent
-            final int dataType = intent.getIntExtra(AmarinoIntent.EXTRA_DATA_TYPE, -1);
-
-            // we only expect String data though, but it is better to check if really string was sent
-            // later Amarino will support differnt data types, so far data comes always as string and
-            // you have to parse the data to the type you have sent from Arduino, like it is shown below
-            if (dataType == AmarinoIntent.STRING_EXTRA){
-                data = intent.getStringExtra(AmarinoIntent.EXTRA_DATA);
-
-                if (data != null){
-                   // mValueTV.setText(data);
-                    try {
-                        // since we know that our string value is an int number we can parse it to an integer
-                        final int sensorReading = Integer.parseInt(data);
-                    //    mGraph.addDataPoint(sensorReading);
-                    }
-                    catch (NumberFormatException e) { /* oh data was not an integer */ }
-                }
-            }
-        }
-    }
 }
