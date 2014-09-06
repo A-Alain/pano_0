@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,7 +18,7 @@ import at.abraxas.amarino.Amarino;
 import at.abraxas.amarino.AmarinoIntent;
 
 
-public class Saisie extends Activity implements View.OnClickListener {
+public class Saisie extends Activity implements View.OnClickListener, View.OnTouchListener {
 
 
     ImageButton button_up;
@@ -25,6 +26,7 @@ public class Saisie extends Activity implements View.OnClickListener {
     ImageButton button_left;
     ImageButton button_right;
     TextView text;
+    PilotageMoteurs moteurs;
 
     public static final String DEVICE_ADDRESS =  "20:13:11:14:04:23";
     private ArduinoReceiver arduinoReceiver = new ArduinoReceiver();
@@ -41,12 +43,15 @@ public class Saisie extends Activity implements View.OnClickListener {
         button_right = (ImageButton) findViewById(R.id.button_right);
         text = (TextView) findViewById(R.id.textView);
 
+       button_left.setOnTouchListener(this);
        button_up.setOnClickListener(this);
        button_down.setOnClickListener(this);
-       button_left.setOnClickListener(this);
+
        button_right.setOnClickListener(this);
 
        ledManager = new LedManager(this.getApplicationContext());
+       moteurs = new PilotageMoteurs(this.getApplicationContext());
+      // moteurs.PanOn(PilotageMoteurs.Pan.Droite);
     }
 
 
@@ -93,6 +98,7 @@ public class Saisie extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+
         int id = view.getId();
         switch (id){
             case R.id.button_down : text.setText("down");
@@ -111,6 +117,20 @@ public class Saisie extends Activity implements View.OnClickListener {
 
     }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (view.getId()){
+            case R.id.button_left:
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    moteurs.PanOn(PilotageMoteurs.Pan.Gauche);
+                }
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                    moteurs.PanOff();
+                }
+                break;
+        }
+        return false;
+    }
 
 
     /**
